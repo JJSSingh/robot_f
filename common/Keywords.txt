@@ -1,0 +1,56 @@
+*** Settings ***
+Library           SeleniumLibrary
+Resource          ../Data/parametros.robot
+
+*** Keywords ***
+Open Browser
+    SeleniumLibrary.Open Browser    http://adactin.com/HotelApp/    gc
+    Maximize Browser Window
+
+Login
+    Wait Until Element Is Visible    //input[@id="username"]    ${timeout}
+    Input Text    //input[@id="username"]    ${user}
+    Input Text    //input[@id="password"]    ${password}
+    Click Element    //input[@id="login"]
+
+SearchHotel
+    Click Element    //select[@id="location"]
+    Click Element    //select[@id="location"]/option[6]
+    Click Element    //select[@id="hotels"]
+    Click Element    //select[@id="hotels"]/option[2]
+    Click Element    //select[@id="room_type"]
+    Click Element    //option[@value="Standard"]
+    Click Element    //select[@id="room_nos"][@name="room_nos"]
+    Click Element    //option[@value="5"]
+    Input Text    //input[@id="datepick_in"]    "20/06/2000"
+    Input Text    //input[@id="datepick_out"]    "27/06/2000"
+    Click Element    //select[@id="adult_room"]
+    Click Element    //select[@id="adult_room"]/option[3]
+    Click Element    //select[@id="child_room"]
+    Click Element    //select[@id="child_room"]/option[2]
+    Click Element    //*[@id="Submit"]
+
+SelectHotel
+    Wait Until Element Is Visible    //input[@id="radiobutton_0"]    ${timeout}
+    Click Element    //input[@id="radiobutton_0"]
+    Click Element    //input[@id="continue"]
+
+BookAHotel
+    Wait Until Element Is Visible    //input[@id="first_name"]    ${timeout}
+    Input Text    //input[@id="first_name"]    "Jose de Jesus"
+    Input Text    //input[@id="last_name"]    "Singh"
+    Input Text    //textarea[@id="address"]    "Zimbaue #3455"
+    Input Text    //input[@id="cc_num"]    "4152313166788899"
+    Click Element    //select[@id="cc_type"]
+    Click Element    //select[@id="cc_type"]/option[2]
+    Click Element    //select[@id="cc_exp_month"]
+    Click Element    //select[@id="cc_exp_month"]/option[3]
+    Click Element    //select[@id="cc_exp_year"]
+    Click Element    //select[@id="cc_exp_year"]/option[5]
+    Input Text    //input[@id="cc_cvv"]    "734"
+    Click Element    //input[@id="book_now"]
+
+Confirmation
+    Wait Until Element Is Visible    //input[@id="order_no"]    ${timeout}
+    ${n_confirmation} =    Get Text    //input[@id="order_no"]
+    Click Element    //input[@id="my_itinerary"]

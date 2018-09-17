@@ -1,0 +1,11 @@
+*** Settings ***
+Resource          ../common/Keywords.txt
+
+*** Test Cases ***
+Open Web Page
+    Keywords.Open Browser
+    Login
+    SearchHotel
+    SelectHotel
+    BookAHotel
+    Confirmation
